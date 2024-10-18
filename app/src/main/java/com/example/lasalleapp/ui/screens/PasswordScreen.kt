@@ -33,6 +33,8 @@ import androidx.compose.ui.unit.sp
 import com.example.lasalleapp.R
 import com.example.lasalleapp.ui.components.ScreenTemplate
 import com.example.lasalleapp.ui.components.SettingTemplate
+import com.example.lasalleapp.ui.theme.BlueDark
+import com.example.lasalleapp.ui.theme.BlueLight
 import com.example.lasalleapp.ui.theme.LaSalleAppTheme
 
 @Composable
@@ -57,7 +59,7 @@ fun PasswordScreen(innerPadding: PaddingValues) {
             Text(
                 text = "Cambiar Contraseña",
                 color = Color.White,
-                style = MaterialTheme.typography.headlineMedium,
+                style = MaterialTheme.typography.headlineLarge,
                 modifier = Modifier.padding(16.dp)
             )
         }
@@ -71,14 +73,14 @@ fun PasswordScreen(innerPadding: PaddingValues) {
         ) {
             Button(onClick = { showSuccessMessage = true },
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = Color.White,
+                    containerColor = BlueLight,
                 ),
                 modifier = Modifier.height(100.dp)
                     .width(300.dp)
             ) {
                 Text("Cambiar contraseña",
-                    color = MaterialTheme.colorScheme.primary,
-                    fontSize = 16.sp)
+                    color = BlueDark,
+                    fontSize = 20.sp)
             }
             if (showSuccessMessage) {
                 Text(

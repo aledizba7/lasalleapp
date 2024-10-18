@@ -66,7 +66,7 @@ fun GradesScreen(innerPadding: PaddingValues, navController: NavController) {
                 Text(
                     text = "Calificaciones",
                     color = Color.White,
-                    style = MaterialTheme.typography.headlineMedium,
+                    style = MaterialTheme.typography.headlineLarge,
                     modifier = Modifier.padding(16.dp)
                 )
             }
@@ -80,9 +80,18 @@ fun GradesScreen(innerPadding: PaddingValues, navController: NavController) {
                 )
             ) {
                 Column(modifier = Modifier.padding(16.dp)) {
-                    Text("Nombre: ${student.name}", fontWeight = FontWeight.Bold, fontSize = 20.sp)
-                    Text("Carrera: ${student.career}", fontSize = 16.sp)
-                    Text("Semestre: ${student.semester}", fontSize = 16.sp)
+                    Text(
+                        "${student.name}",
+                        style = MaterialTheme.typography.titleLarge
+                    )
+                    Text(
+                        "Carrera: ${student.career}",
+                        style = MaterialTheme.typography.titleMedium
+                    )
+                    Text(
+                        "Semestre: ${student.semester}",
+                        style = MaterialTheme.typography.titleMedium
+                    )
                 }
             }
         },

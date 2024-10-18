@@ -22,7 +22,7 @@ private val LightColorScheme = lightColorScheme(
     secondary = Red,
     background = GrayLight,
     onPrimary = White,
-    onSurface = GrayDark
+    onSurface = GrayDark,
 )
 
 // es el que llamamos en HomeScreen.HomeScreenPreview

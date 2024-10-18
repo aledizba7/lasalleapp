@@ -2,6 +2,7 @@ package com.example.lasalleapp.ui.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -14,6 +15,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -23,13 +25,17 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.compose.rememberNavController
 import com.example.lasalleapp.R
 import com.example.lasalleapp.models.PartialGrade
 import com.example.lasalleapp.models.Subject
 import com.example.lasalleapp.ui.components.ScreenTemplate
 import com.example.lasalleapp.ui.components.SettingTemplate
+import com.example.lasalleapp.ui.theme.BlueLight
+import com.example.lasalleapp.ui.theme.GrayLight
 import com.example.lasalleapp.ui.theme.LaSalleAppTheme
+import com.example.lasalleapp.ui.theme.White
 
 @Composable
 fun SubjectPartialsScreen(subject: Subject, innerPadding: PaddingValues) {
@@ -53,7 +59,7 @@ fun SubjectPartialsScreen(subject: Subject, innerPadding: PaddingValues) {
                 Text(
                     text = subject.name,
                     color = Color.White,
-                    style = MaterialTheme.typography.headlineMedium,
+                    style = MaterialTheme.typography.headlineLarge,
                     modifier = Modifier.padding(16.dp)
                 )
             }
@@ -64,7 +70,10 @@ fun SubjectPartialsScreen(subject: Subject, innerPadding: PaddingValues) {
                     Card(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(8.dp)
+                            .padding(8.dp),
+                        colors = CardDefaults.cardColors(
+                            containerColor = BlueLight.copy(alpha = 0.6f)
+                        )
                     ) {
                         Row(
                             modifier = Modifier
@@ -73,10 +82,23 @@ fun SubjectPartialsScreen(subject: Subject, innerPadding: PaddingValues) {
                             horizontalArrangement = Arrangement.SpaceBetween
                         ) {
                             Text("Parcial ${partialGrade.partialNumber}", style = MaterialTheme.typography.bodyLarge)
-                            Text("${partialGrade.grade}", style = MaterialTheme.typography.bodyLarge)
+                            Text("Promedio: ${partialGrade.grade}", style = MaterialTheme.typography.bodyLarge)
                         }
                     }
                 }
+            }
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(top = 220.dp)
+                    .padding(16.dp)
+            ){
+                Text(
+                    "Promedio Final: ${subject.averageGrade}",
+                    fontSize = 20.sp,
+                    color = GrayLight,
+                    modifier = Modifier.padding(15.dp),
+                )
             }
         }
     )

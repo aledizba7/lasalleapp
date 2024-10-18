@@ -80,8 +80,8 @@ fun SettingsScreen(innerPadding: PaddingValues, navController: NavController){
                     // Circular Image
                     AsyncImage(
                         model = ImageRequest.Builder(LocalContext.current)
-                            .data("https://i.pinimg.com/550x/d9/a6/bc/d9a6bc17a44f2c42a79fad66c4b5c053.jpg")
-                            .placeholder(R.drawable.ale)
+                            .data(R.drawable.ale)
+                            .placeholder(R.drawable.profile)
                             .crossfade(true)
                             .build(),
                         contentDescription = "Imagen del alumno",
