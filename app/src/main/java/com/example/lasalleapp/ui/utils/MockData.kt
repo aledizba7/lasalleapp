@@ -8,6 +8,7 @@ import androidx.compose.material.icons.filled.Settings
 import com.example.lasalleapp.models.BottomNavigationItem
 import com.example.lasalleapp.models.Community
 import com.example.lasalleapp.models.News
+import com.example.lasalleapp.ui.components.Widget
 
 val newsList = listOf(
     News(
@@ -52,6 +53,7 @@ val bottomNavBarItems = listOf(
         route = Screens.Settings.route
     ),
 )
+
 
 val communities = listOf(
     Community(1,"https://www.lasallebajio.edu.mx/comunidad/images/tile_documentos_inspiradores.jpg"),

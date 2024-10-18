@@ -84,17 +84,17 @@ fun ScreenTemplate(
                 .height(270.dp)
                 .background(MaterialTheme.colorScheme.primary)
         ){
-            header
+            header()
         }
 
 
         // Body
         Box(
             modifier = Modifier
-                .fillMaxSize()
+                .weight(1f)
                 .background(MaterialTheme.colorScheme.background)
         ){
-            body
+            body()
         }
     }
 }

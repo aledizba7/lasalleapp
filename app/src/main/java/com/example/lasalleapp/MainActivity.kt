@@ -29,6 +29,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.lasalleapp.ui.screens.CalendarScreen
+import com.example.lasalleapp.ui.screens.FeesScreen
 import com.example.lasalleapp.ui.screens.GradesScreen
 import com.example.lasalleapp.ui.screens.HomeScreen
 import com.example.lasalleapp.ui.screens.NewsDetailScreen
@@ -56,6 +57,7 @@ class MainActivity : ComponentActivity() {
                 Screens.Settings.route,
                 Screens.Calendar.route
             )
+
 
             LaSalleAppTheme {
 
@@ -124,6 +126,9 @@ class MainActivity : ComponentActivity() {
                         ){
                             val id = it.arguments?.getInt("id",0) ?: 0 // si es nulo, regresa un 0
                             NewsDetailScreen(newsId = id, innerPadding = innerPadding)
+                        }
+                        composable(route = "fees") {
+                            FeesScreen(innerPadding = innerPadding, navController = navController)
                         }
                     }
                 }
