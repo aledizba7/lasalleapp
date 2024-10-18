@@ -28,6 +28,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.lasalleapp.models.subjects
 import com.example.lasalleapp.ui.screens.CalendarScreen
 import com.example.lasalleapp.ui.screens.FeesScreen
 import com.example.lasalleapp.ui.screens.GradesScreen
@@ -35,6 +36,7 @@ import com.example.lasalleapp.ui.screens.HomeScreen
 import com.example.lasalleapp.ui.screens.NewsDetailScreen
 import com.example.lasalleapp.ui.screens.PasswordScreen
 import com.example.lasalleapp.ui.screens.SettingsScreen
+import com.example.lasalleapp.ui.screens.SubjectPartialsScreen
 import com.example.lasalleapp.ui.screens.ThemeScreen
 import com.example.lasalleapp.ui.theme.LaSalleAppTheme
 import com.example.lasalleapp.ui.utils.Screens
@@ -112,7 +114,7 @@ class MainActivity : ComponentActivity() {
                             CalendarScreen(innerPadding = innerPadding)
                         }
                         composable(route = Screens.Grades.route){
-                            GradesScreen(innerPadding = innerPadding)
+                            GradesScreen(innerPadding = innerPadding, navController = navController)
                         }
                         composable(route = Screens.Settings.route){
                             SettingsScreen(innerPadding = innerPadding, navController = navController)
@@ -137,6 +139,20 @@ class MainActivity : ComponentActivity() {
                         }
                         composable(route = "changeTheme") {
                             ThemeScreen(innerPadding = innerPadding)
+                        }
+                        composable(
+                            route = "subjectPartials/{subjectId}",
+                            arguments = listOf(navArgument("subjectId") { type = NavType.IntType })
+                        ) { backStackEntry ->
+                            val subjectId = backStackEntry.arguments?.getInt("subjectId") ?: -1
+
+                            val subject = subjects.find { it.id == subjectId }
+
+                            if (subject != null) {
+                                SubjectPartialsScreen(subject = subject, innerPadding = innerPadding)
+                            } else {
+                                Text("Subject not found")
+                            }
                         }
                     }
                 }
