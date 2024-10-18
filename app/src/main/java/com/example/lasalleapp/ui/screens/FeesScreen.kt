@@ -47,6 +47,7 @@ import com.example.lasalleapp.ui.theme.LaSalleAppTheme
 
 @Composable
 fun FeesScreen(innerPadding: PaddingValues, navController: NavController) {
+    // Se inicializa una lista mutable que contiene los pagos mensuales (mes, estado, fecha de vencimiento)
     val feesList = remember { mutableStateListOf(
         Fees("AGOSTO", true, "10/08/2024"),
         Fees("SEPTIEMBRE", true, "12/09/2024"),
@@ -55,6 +56,7 @@ fun FeesScreen(innerPadding: PaddingValues, navController: NavController) {
         Fees("DICIEMBRE", false, "05/12/2024")
     ) }
 
+    // Creación de un objeto Student que representa los datos del estudiante, incluyendo su nombre, carrera, y semestre
     val student = Student(
         name = "Alejandra Díaz Barajas",
         career = "ISSC",
@@ -62,8 +64,10 @@ fun FeesScreen(innerPadding: PaddingValues, navController: NavController) {
         subjects = subjects
     )
 
+    // Se utiliza el template ScreenTemplate para definir la estructura de la pantalla
     ScreenTemplate(innerPadding= innerPadding,
         header = {
+            // Header que muestra el logo y el título de la sección
             Row (
                 modifier = Modifier
                     .fillMaxWidth()
@@ -72,12 +76,13 @@ fun FeesScreen(innerPadding: PaddingValues, navController: NavController) {
             ) {
                 Image(
                     painter = painterResource(
-                        id = R.drawable.logo
+                        id = R.drawable.logo // Logo de la app
                     ),
                     contentDescription = "Logo",
                     modifier = Modifier.size(70.dp)
                 )
 
+                // Título de la pantalla, estilizado
                 Text(
                     text = "Pagos",
                     color = Color.White,
@@ -85,6 +90,8 @@ fun FeesScreen(innerPadding: PaddingValues, navController: NavController) {
                     modifier = Modifier.padding(16.dp)
                 )
             }
+
+            // Tarjeta que muestra información del estudiante
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -94,6 +101,7 @@ fun FeesScreen(innerPadding: PaddingValues, navController: NavController) {
                     containerColor = Color.LightGray.copy(alpha = 0.2f)
                 )
             ) {
+                // Detalles del estudiante dentro de la tarjeta
                 Column(modifier = Modifier.padding(16.dp)) {
                     Text(
                         "${student.name}",
@@ -111,16 +119,21 @@ fun FeesScreen(innerPadding: PaddingValues, navController: NavController) {
             }
         },
         body = {
+            // Cuerpo de la pantalla que lista los pagos pendientes y realizados
             Column {
+                // Título para los pagos pendientes
                 Text(
                     text = "PAGOS PENDIENTES",
                     modifier = Modifier.padding(16.dp),
                     style = MaterialTheme.typography.headlineMedium,
                     color = BlueDark
                 )
+
+                // Lista de pagos pendientes usando LazyColumn para un scroll eficiente
                 LazyColumn(modifier = Modifier.padding(8.dp)) {
                     items(feesList.filter { !it.isPaid }) { fee ->
                         FeeItem(fee) { updatedFee ->
+                            // Se actualiza el estado del pago cuando el usuario presiona el botón 'PAGAR'
                             val index = feesList.indexOf(fee)
                             if (index != -1) {
                                 feesList[index] = updatedFee
@@ -129,15 +142,19 @@ fun FeesScreen(innerPadding: PaddingValues, navController: NavController) {
                     }
                 }
 
+                // Título para los pagos realizados
                 Text(
                     text = "PAGOS REALIZADOS",
                     modifier = Modifier.padding(16.dp),
                     style = MaterialTheme.typography.headlineMedium,
                     color = BlueDark
                 )
+
+                // Lista de pagos realizados
                 LazyColumn(modifier = Modifier.padding(8.dp)) {
                     items(feesList.filter { it.isPaid }) { fee ->
                         FeeItem(fee) { updatedFee ->
+                            // Aunque se podría modificar el estado del pago, aquí no debería cambiar porque ya está pagado
                             val index = feesList.indexOf(fee)
                             if (index != -1) {
                                 feesList[index] = updatedFee
@@ -150,13 +167,16 @@ fun FeesScreen(innerPadding: PaddingValues, navController: NavController) {
     )
 }
 
+// Composable que representa cada ítem de la lista de pagos
 @Composable
 fun FeeItem(fee: Fees, onPayClicked: (Fees) -> Unit) {
-    Card( // Add a Card for the border
+    // Tarjeta que contiene la información del pago
+    Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(4.dp),
     ) {
+        // Fila que organiza el contenido horizontalmente
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -164,14 +184,18 @@ fun FeeItem(fee: Fees, onPayClicked: (Fees) -> Unit) {
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
+            // Muestra el mes del pago
             Column(modifier = Modifier.weight(1f)) {
                 Text(fee.month, style = MaterialTheme.typography.bodyMedium)
             }
+            // Muestra la fecha de vencimiento del pago
             Column(modifier =Modifier.weight(1f)) {
                 Text("Fecha de vencimiento: ${fee.dueDate}", style = MaterialTheme.typography.bodySmall)
             }
+            // Condicional para mostrar el estado del pago
             Column(modifier = Modifier.weight(1f)) {
                 if (fee.isPaid) {
+                    // Indica que el pago está completado
                     Row(verticalAlignment = Alignment.CenterVertically){
                         Icon(
                             imageVector = Icons.Filled.Check,
@@ -185,6 +209,7 @@ fun FeeItem(fee: Fees, onPayClicked: (Fees) -> Unit) {
                         )
                     }
                 } else {
+                    // Muestra un botón de 'PAGAR' si el pago está pendiente
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Icon(
                             imageVector = Icons.Filled.Close,
@@ -193,19 +218,21 @@ fun FeeItem(fee: Fees, onPayClicked: (Fees) -> Unit) {
                         )
                         Spacer(modifier = Modifier.width(4.dp))
                         Button(
-                            onClick = { onPayClicked(fee.copy(isPaid = true)) },
+                            onClick = { onPayClicked(fee.copy(isPaid = true)) }, // Llama la función para actualizar el estado a pagado
                             colors = ButtonDefaults.buttonColors(containerColor = DarkRed)
-                        ) {Text("PAGAR",
-                            fontSize = 10.sp)
+                        ) {
+                            Text("PAGAR",
+                                fontSize = 10.sp)
                         }
                     }
                 }
             }
         }
     }
-    Spacer(modifier = Modifier.height(8.dp))
+    Spacer(modifier = Modifier.height(8.dp)) // Espacio entre tarjetas
 }
 
+// Vista previa para mostrar cómo se verá la pantalla de pagos
 @Preview(
     showBackground = true,
     showSystemUi = true
