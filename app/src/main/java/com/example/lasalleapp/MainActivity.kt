@@ -33,7 +33,9 @@ import com.example.lasalleapp.ui.screens.FeesScreen
 import com.example.lasalleapp.ui.screens.GradesScreen
 import com.example.lasalleapp.ui.screens.HomeScreen
 import com.example.lasalleapp.ui.screens.NewsDetailScreen
+import com.example.lasalleapp.ui.screens.PasswordScreen
 import com.example.lasalleapp.ui.screens.SettingsScreen
+import com.example.lasalleapp.ui.screens.ThemeScreen
 import com.example.lasalleapp.ui.theme.LaSalleAppTheme
 import com.example.lasalleapp.ui.utils.Screens
 import com.example.lasalleapp.ui.utils.bottomNavBarItems
@@ -113,7 +115,7 @@ class MainActivity : ComponentActivity() {
                             GradesScreen(innerPadding = innerPadding)
                         }
                         composable(route = Screens.Settings.route){
-                            SettingsScreen(innerPadding = innerPadding)
+                            SettingsScreen(innerPadding = innerPadding, navController = navController)
                         }
                         composable(
                             route = Screens.NewsDetail.route+"/{id}",
@@ -129,6 +131,12 @@ class MainActivity : ComponentActivity() {
                         }
                         composable(route = "fees") {
                             FeesScreen(innerPadding = innerPadding, navController = navController)
+                        }
+                        composable(route = "changePassword") {
+                            PasswordScreen(innerPadding = innerPadding)
+                        }
+                        composable(route = "changeTheme") {
+                            ThemeScreen(innerPadding = innerPadding)
                         }
                     }
                 }

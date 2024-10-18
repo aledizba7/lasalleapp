@@ -35,10 +35,10 @@ import com.example.lasalleapp.ui.theme.LaSalleAppTheme
 fun FeesScreen(innerPadding: PaddingValues, navController: NavController) {
     val feesList = remember { mutableStateListOf(
         Fees("AGOSTO", true, "10/08/2024"),
-        Fees("SEPTIEMBRE", false, "12/09/2024"),
-        Fees("OCTUBRE", true, "09/10/2024"),
+        Fees("SEPTIEMBRE", true, "12/09/2024"),
+        Fees("OCTUBRE", false, "09/10/2024"),
         Fees("NOVIEMBRE", false, "15/11/2024"),
-        Fees("DICIEMBRE", true, "05/12/2024")
+        Fees("DICIEMBRE", false, "05/12/2024")
     ) }
 
     ScreenTemplate(innerPadding= innerPadding,
